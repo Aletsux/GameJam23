@@ -10,9 +10,7 @@ public class CameraController : MonoBehaviour
     public float height = 5.0f;    // Height above the player
     public float smoothSpeed = 5.0f;  // Smoothing speed
     public float angle = 45.0f;
-    public Camera[] camerasToToggle;
-    public GameObject[] entrances;
-    public CameraTransition transition;
+
     private bool transitionCam = false;
 
     private Vector3 offset;
@@ -22,7 +20,7 @@ public class CameraController : MonoBehaviour
         // Calculate the initial offset based on the fixed angle
         float angleInRadians = angle * Mathf.Deg2Rad; // Change the angle as needed
         offset = new Vector3(0, height, Mathf.Sin(angleInRadians) * distance * -1);
-        Debug.Log(target.transform.position);
+        
     }
 
     private void Update()
@@ -38,39 +36,8 @@ public class CameraController : MonoBehaviour
 
         // Make the camera look at the player's position
         transform.LookAt(target.position);
-
-        if(transition.getPassed()) {
-            transitionCam = true;
-        } 
     }
 
-    private void OnCollisionEnter(Collision other) {
-         if (other.gameObject.CompareTag("Player"))
-        {
-            foreach (GameObject entrance in entrances)
-            {
-                if (entrance != null) {
-                    if(transition.getPassed()) {
-                        toggleCamera();
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
-    private void toggleCamera() {
-        // Toggle the state of each camera in the array
-        for(int i = 0; i < entrances.Length; i++) {
-            if(entrances[i] != null) {
-                Camera activeCam = camerasToToggle[i];
-                if(activeCam != null) {
-                    activeCam.enabled = !activeCam.enabled;
-                }
-                
-            }
-        }
-    }
 } 
 
 

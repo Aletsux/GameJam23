@@ -52,16 +52,5 @@ public class CharacterController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
         }
     }
-
-    private void OnCollisionEnter(Collision other) {
-        if(gameObject.CompareTag("dog")) {
-            
-            gameObject.transform.position = other.transform.position;
-        }
-
-        if(other.gameObject.CompareTag("moveable")) {
-            
-        }
-    }
 }
 
