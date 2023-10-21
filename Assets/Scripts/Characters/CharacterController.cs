@@ -8,8 +8,7 @@ public class CharacterController : MonoBehaviour
     public float rotationSpeed = 10.0f;
     private Vector3 currentVelocity = Vector3.zero;
     private Rigidbody rb;
-    private GameObject manCollider;
-    private GameObject dogCollider;
+    public GameObject attkCollider;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();

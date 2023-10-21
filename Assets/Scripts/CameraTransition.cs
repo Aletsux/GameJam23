@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class CameraTransition : MonoBehaviour
 {
+    private GameController gc;
     public Camera[] roomCameras; // An array of cameras associated with different rooms
     public Camera mainCam;
-    private int activeCam = 0;
+    //private int activeCam = 0;
+    
+    private void Start() {
+        gc = GameObject.Find("GameController").GetComponent<GameController>();
+        
+        if(gc == null) {
+            Debug.Log("GC not found!");
+        }
+        gc.setCurrentRoom(0);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -31,14 +41,14 @@ public class CameraTransition : MonoBehaviour
                 }
 
                 // Activate the camera associated with the current room
-                if(activeCam == roomIndex) { 
+                if(gc.getCurrentRoom() == roomIndex) { 
                     //Exiting room
                     roomCameras[0].gameObject.SetActive(true);
-                    activeCam = 0;
+                    gc.setCurrentRoom(0);
                 } else { 
                     //Entering new room
                     roomCameras[roomIndex].gameObject.SetActive(true);
-                    activeCam = roomIndex;
+                    gc.setCurrentRoom(roomIndex);
                 }
                 
             }
